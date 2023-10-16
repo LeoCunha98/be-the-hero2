@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { View, FlatList, Image, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
 
 import logoImg from "../../assets/logo.png";
 
@@ -24,30 +31,35 @@ export default function Incidents() {
       return;
     }
 
-    if (total > 0 && incidents.length === total) {
+    if (total > 0 && incidents.length >= total) {
       return;
     }
 
     setLoading(true);
 
     const response = {
+      headers: { "x-total-count": 2 },
       data: [
         {
           id: 1,
+          name: "ONG 1",
           title: "Incidente 1",
-          name: "Incidente 1",
-          value: 50,
+          value: 10,
         },
         {
           id: 2,
+          name: "ONG 1",
           title: "Incidente 2",
-          name: "Incidente 2",
-          value: 50,
+          value: 15,
+        },
+        {
+          id: 3,
+          name: "ONG 2",
+          title: "Incidente 3",
+          value: 30,
         },
       ],
     };
-
-    console.log("response :>> ", response);
 
     setIncidents([...incidents, ...response.data]);
     setTotal(response.headers["x-total-count"]);
@@ -95,13 +107,13 @@ export default function Incidents() {
               }).format(incident.value)}
             </Text>
 
-            <TouchableOpacity
+            <Pressable
               style={styles.detailsButton}
               onPress={() => navigateToDetail(incident)}
             >
               <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
               <Feather name="arrow-right" size={16} color="#E02041" />
-            </TouchableOpacity>
+            </Pressable>
           </View>
         )}
       />
