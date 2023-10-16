@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 const AppStack = createNativeStackNavigator();
 
-import Incidents from './pages/incidentes/index';
+import Incidents from './src/pages/incidentes/index';
 
 export default function Routes() {
   return (
