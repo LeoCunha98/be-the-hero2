@@ -26,6 +26,11 @@ export default function Incidents() {
     navigation.navigate("Detail", { incident });
   }
 
+  function navigateToHistory() {
+    navigation.navigate("History", { incidents: incidents });
+  }
+
+
   async function loadIncidents() {
     if (loading) {
       return;
@@ -82,6 +87,12 @@ export default function Incidents() {
         <Text style={styles.headerText}>
           Total de <Text style={styles.headerTextBold}>{total} casos</Text>.
         </Text>
+        <TouchableOpacity
+          style={styles.historyButton}
+          onPress={navigateToHistory}
+        >
+          <Text style={styles.historyButtonText}>Ver Histórico</Text>
+        </TouchableOpacity>
       </View>
       <Text style={styles.title}>Bem-vindo</Text>
       <Text style={styles.description}>

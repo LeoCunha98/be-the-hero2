@@ -17,14 +17,12 @@ export default function Detail() {
         style: 'currency',
         currency: 'BRL'
     }).format(incident.value)}`;
-    console.log("message :>> ", message);
 
     function navigateBack() {
         navigation.goBack();
     }
 
     function sendMail() {
-        console.log("incident :>> ", incident);
         MailComposer.composeAsync({
             subject: `Herói do caso: ${incident.title}`,
             recipients: [incident.email],

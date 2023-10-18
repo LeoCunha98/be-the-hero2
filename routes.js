@@ -6,6 +6,7 @@ const AppStack = createNativeStackNavigator();
 
 import Incidents from './src/pages/incidentes/index';
 import Detail from './src/pages/detail/index';
+import History from './src/pages/history/index';
 
 export default function Routes() {
   return (
@@ -13,6 +14,7 @@ export default function Routes() {
       <AppStack.Navigator screenOptions={{ headerShown: false }}>
         <AppStack.Screen name='Incidentes' component={Incidents} />
         <AppStack.Screen name='Detail' component={Detail} />
+        <AppStack.Screen name='History' component={History} />
       </AppStack.Navigator>
     </NavigationContainer>
   );
