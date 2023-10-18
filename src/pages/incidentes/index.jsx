@@ -30,7 +30,6 @@ export default function Incidents() {
     navigation.navigate("History", { incidents: incidents });
   }
 
-
   async function loadIncidents() {
     if (loading) {
       return;
@@ -43,7 +42,7 @@ export default function Incidents() {
     setLoading(true);
 
     const response = {
-      headers: { "x-total-count": 2 },
+      headers: { "x-total-count": 3 },
       data: [
         {
           id: 1,
@@ -62,7 +61,29 @@ export default function Incidents() {
           title: "Incidente 2",
           name: "Incidente 2",
           value: 50,
-          email: "asdad@asda.com",
+          email: "ong1@email.com",
+          whatsapp: "12123123",
+          city: "Juiz de fora",
+          uf: "MG",
+        },
+        {
+          id: 3,
+          name: "ONG 2",
+          title: "Incidente 3",
+          name: "Incidente 3",
+          value: 20,
+          email: "ong2@email.com",
+          whatsapp: "12123123",
+          city: "Juiz de fora",
+          uf: "MG",
+        },
+        {
+          id: 4,
+          name: "ONG 3",
+          title: "Incidente 4",
+          name: "Incidente 4",
+          value: 20,
+          email: "ong3@email.com",
           whatsapp: "12123123",
           city: "Juiz de fora",
           uf: "MG",
@@ -83,7 +104,7 @@ export default function Incidents() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image source={logoImg} />
+        <Image source={logoImg} style={styles.logo} />
         <Text style={styles.headerText}>
           Total de <Text style={styles.headerTextBold}>{total} casos</Text>.
         </Text>

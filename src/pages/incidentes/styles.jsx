@@ -72,4 +72,9 @@ export default StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
   },
+
+  logo: {
+    width: 125,
+    height: 50,
+  },
 });
