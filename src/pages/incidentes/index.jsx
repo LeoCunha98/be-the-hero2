@@ -42,7 +42,7 @@ export default function Incidents() {
     setLoading(true);
 
     const response = {
-      headers: { "x-total-count": 3 },
+      headers: { "x-total-count": 4 },
       data: [
         {
           id: 1,

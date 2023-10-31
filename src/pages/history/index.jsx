@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
-import Feather from 'react-native-vector-icons/Feather';
-import { useNavigation } from '@react-navigation/native';
-import logoImg from '../../assets/logo.png';
-import styles from './styles';
+import React, { useState, useEffect } from "react";
+import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
+import Feather from "react-native-vector-icons/Feather";
+import { useNavigation } from "@react-navigation/native";
+import logoImg from "../../assets/logo.png";
+import styles from "./styles";
 
 export default function History({ route }) {
   const navigation = useNavigation();
@@ -16,10 +16,9 @@ export default function History({ route }) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image source={logoImg} />
-
+        <Image source={logoImg} style={styles.logo} />
         <TouchableOpacity onPress={navigateBack}>
-          <Feather name='arrow-left' size={28} color='#E02041' />
+          <Feather name="arrow-left" size={28} color="#E02041" />
         </TouchableOpacity>
       </View>
       <Text style={[styles.incidentProperty, { marginTop: 20 }]}>
@@ -34,24 +33,30 @@ export default function History({ route }) {
             <TouchableOpacity
               style={{
                 marginTop: 30,
-                backgroundColor: 'white',
+                backgroundColor: "white",
                 padding: 16,
                 marginBottom: 16,
                 borderRadius: 8,
-                shadowColor: '#000',
+                shadowColor: "#000",
                 shadowOffset: { width: 0, height: 2 },
                 shadowOpacity: 0.25,
                 shadowRadius: 3.84,
                 elevation: 5,
               }}
             >
-              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.title}</Text>
-              <Text style={{ fontSize: 14, marginTop: 8 }}>{item.description}</Text>
+              <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                {item.title}
+              </Text>
+              <Text style={{ fontSize: 14, marginTop: 8 }}>
+                {item.description}
+              </Text>
             </TouchableOpacity>
           )}
         />
       ) : (
-        <Text style={[styles.incidentProperty, { marginTop: 20 }]}>Você não ajudou em nenhum incidente ainda.</Text>
+        <Text style={[styles.incidentProperty, { marginTop: 20 }]}>
+          Você não ajudou em nenhum incidente ainda.
+        </Text>
       )}
     </View>
   );
