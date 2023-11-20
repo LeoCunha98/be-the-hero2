@@ -9,6 +9,7 @@ import Detail from './src/pages/detail/index'
 import History from './src/pages/history/index'
 import LoginScreen from './src/pages/login';
 import Profile from './src/pages/profile';
+import Register from './src/pages/register';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ export default function App() {
         <Stack.Screen name='Detail' component={Detail} />
         <Stack.Screen name='History' component={History} />
         <Stack.Screen name='Profile' component={Profile} />
+        <Stack.Screen name='Register' component={Register} />
       </Stack.Navigator>
     </NavigationContainer>
   );
