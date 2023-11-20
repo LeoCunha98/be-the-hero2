@@ -8,6 +8,7 @@ import Incidents from './src/pages/incidentes/index'
 import Detail from './src/pages/detail/index'
 import History from './src/pages/history/index'
 import LoginScreen from './src/pages/login';
+import Profile from './src/pages/profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,7 @@ export default function App() {
         <Stack.Screen name='Incidentes' component={Incidents} />
         <Stack.Screen name='Detail' component={Detail} />
         <Stack.Screen name='History' component={History} />
+        <Stack.Screen name='Profile' component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

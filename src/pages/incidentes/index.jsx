@@ -30,6 +30,10 @@ export default function Incidents() {
     navigation.navigate("History", { incidents: incidents });
   }
 
+  function navigateToProfile() {
+    navigation.navigate("Profile", {});
+  }
+
   async function loadIncidents() {
     if (loading) {
       return;
@@ -113,6 +117,12 @@ export default function Incidents() {
           onPress={navigateToHistory}
         >
           <Text style={styles.historyButtonText}>Ver Histórico</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.historyButton}
+          onPress={navigateToProfile}
+        >
+          <Text style={styles.historyButtonText}>Perfil</Text>
         </TouchableOpacity>
       </View>
       <Text style={styles.title}>Bem-vindo</Text>
