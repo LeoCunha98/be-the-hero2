@@ -10,7 +10,7 @@ import {
   Pressable,
 } from "react-native";
 
-import logoImg from "../../assets/logo.png";
+import Header from "../../components/header";
 
 import styles from "./styles";
 
@@ -107,24 +107,11 @@ export default function Incidents() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Image source={logoImg} style={styles.logo} />
-        <Text style={styles.headerText}>
-          Total de <Text style={styles.headerTextBold}>{total} casos</Text>.
-        </Text>
-        <TouchableOpacity
-          style={styles.historyButton}
-          onPress={navigateToHistory}
-        >
-          <Text style={styles.historyButtonText}>Ver Histórico</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.historyButton}
-          onPress={navigateToProfile}
-        >
-          <Text style={styles.historyButtonText}>Perfil</Text>
-        </TouchableOpacity>
-      </View>
+       <Header
+        total={total}
+        navigateToHistory={navigateToHistory}
+        navigateToProfile={navigateToProfile}
+      />
       <Text style={styles.title}>Bem-vindo</Text>
       <Text style={styles.description}>
         Escolha um dos casos abaixo e salve o dia.
