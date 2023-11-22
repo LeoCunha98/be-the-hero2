@@ -13,12 +13,6 @@ export default function Header({ total, navigateToHistory, navigateToProfile }) 
       <Text style={styles.headerText}>
         Total de <Text style={styles.headerTextBold}>{total} casos</Text>.
       </Text>
-      <TouchableOpacity style={styles.historyButton} onPress={navigateToHistory}>
-        <Text style={styles.historyButtonText}>Ver Histórico</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.historyButton} onPress={navigateToProfile}>
-        <Text style={styles.historyButtonText}>Perfil</Text>
-      </TouchableOpacity>
     </View>
   );
 }
