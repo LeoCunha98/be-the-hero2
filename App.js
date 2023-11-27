@@ -1,47 +1,83 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Entypo, FontAwesome, AntDesign } from '@expo/vector-icons';
+import { auth } from './src/config/firebase';
 
-import Incidents from './src/pages/incidentes/index'
-import Detail from './src/pages/detail/index'
-import History from './src/pages/history/index'
+import Incidentes from './src/pages/incidentes/index';
+import Detail from './src/pages/detail/index';
+import History from './src/pages/history/index';
 import LoginScreen from './src/pages/login';
 import Profile from './src/pages/profile';
 import Register from './src/pages/register';
 
-const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-function IncidentsStack() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen options={{ headerShown: false }} name='Login' component={LoginScreen} />
-      <Stack.Screen name='Incidentes' component={Incidents} />
-      <Stack.Screen name='Detail' component={Detail} />
-      <Stack.Screen name='Register' component={Register} />
-    </Stack.Navigator>
-  );
-}
+const MainTabs = () => (
+  <Tab.Navigator screenOptions={{ headerShown: false}}>
+    <Tab.Screen
+      name='Incidentes'
+      component={IncidentesStack}
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <Entypo name="home" size={24} color={color} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name='Historico'
+      component={History}
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <FontAwesome name="history" size={24} color={color} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name='Profile'
+      component={Profile}
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <AntDesign name="profile" size={24} color={color} />
+        ),
+      }}
+    />
+  </Tab.Navigator>
+);
 
-export default function App() {
+const AuthStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name='Login' component={LoginScreen} />
+    <Stack.Screen name='Register' component={Register} />
+  </Stack.Navigator>
+);
+
+const IncidentesStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name='Incidentes' component={Incidentes} />
+    <Stack.Screen name='Detail' component={Detail} />
+  </Stack.Navigator>
+);
+
+const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+
+  React.useEffect(() => {
+    auth.onAuthStateChanged((user) => setIsAuthenticated(!!user));
+    setIsAuthenticated(true);
+  }, []);
+
   return (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name='Incidentes' component={IncidentsStack} />
-        <Tab.Screen name='Historico' component={History} />
-        <Tab.Screen name='Profile' component={Profile} />
-      </Tab.Navigator>
+      {isAuthenticated ? (
+        <MainTabs />
+      ) : (
+        <AuthStack />
+      )}
     </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;

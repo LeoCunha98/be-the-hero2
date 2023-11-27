@@ -7,7 +7,11 @@ import styles from "./styles";
 
 export default function History({ route }) {
   const navigation = useNavigation();
-  const { incidents } = route.params;
+  const incidents = [
+    { id: 1, title: "Incidente 1", description: "Descrição do incidente 1" },
+    { id: 2, title: "Incidente 2", description: "Descrição do incidente 2" },
+    { id: 3, title: "Incidente 3", description: "Descrição do incidente 3" },
+  ];
 
   function navigateBack() {
     navigation.goBack();
