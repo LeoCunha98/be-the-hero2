@@ -22,4 +22,10 @@ export default StyleSheet.create({
     width: 125,
     height: 50,
   },
+  incidentValue: {
+    marginTop: 0,
+    fontSize: 15,
+    marginBottom: 24,
+    color: "#737380",
+  },
 });

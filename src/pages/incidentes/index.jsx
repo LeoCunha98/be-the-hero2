@@ -9,6 +9,8 @@ import {
   TouchableOpacity,
   Pressable,
 } from "react-native";
+import { ref, get } from "firebase/database";
+import { db } from "../../config/firebase";
 
 import Header from "../../components/header";
 
@@ -26,14 +28,6 @@ export default function Incidents() {
     navigation.navigate("Detail", { incident });
   }
 
-  function navigateToHistory() {
-    navigation.navigate("History", { incidents: incidents });
-  }
-
-  function navigateToProfile() {
-    navigation.navigate("Profile", {});
-  }
-
   async function loadIncidents() {
     if (loading) {
       return;
@@ -45,59 +39,21 @@ export default function Incidents() {
 
     setLoading(true);
 
-    const response = {
-      headers: { "x-total-count": 4 },
-      data: [
-        {
-          id: 1,
-          name: "ONG 1",
-          title: "Incidente 1",
-          name: "Incidente 1",
-          value: 50,
-          email: "asdasd@sadas.com",
-          whatsapp: "22123123",
-          city: "Juiz de fora",
-          uf: "MG",
-        },
-        {
-          id: 2,
-          name: "ONG 1",
-          title: "Incidente 2",
-          name: "Incidente 2",
-          value: 50,
-          email: "ong1@email.com",
-          whatsapp: "12123123",
-          city: "Juiz de fora",
-          uf: "MG",
-        },
-        {
-          id: 3,
-          name: "ONG 2",
-          title: "Incidente 3",
-          name: "Incidente 3",
-          value: 20,
-          email: "ong2@email.com",
-          whatsapp: "12123123",
-          city: "Juiz de fora",
-          uf: "MG",
-        },
-        {
-          id: 4,
-          name: "ONG 3",
-          title: "Incidente 4",
-          name: "Incidente 4",
-          value: 20,
-          email: "ong3@email.com",
-          whatsapp: "12123123",
-          city: "Juiz de fora",
-          uf: "MG",
-        },
-      ],
-    };
+    const incidentsRef = ref(db, "incidents");
+    const snapshot = await get(incidentsRef);
+    const data = snapshot.val();
 
-    setIncidents([...incidents, ...response.data]);
-    setTotal(response.headers["x-total-count"]);
-    setPage(page + 1);
+    if (data) {
+      const incidentsArray = Object.keys(data).map((key) => ({
+        id: key,
+        ...data[key],
+      }));
+
+      setIncidents([...incidents, ...incidentsArray]);
+      setTotal(incidentsArray.length);
+      setPage(page + 1);
+    }
+
     setLoading(false);
   }
 
@@ -109,8 +65,6 @@ export default function Incidents() {
     <View style={styles.container}>
        <Header
         total={total}
-        navigateToHistory={navigateToHistory}
-        navigateToProfile={navigateToProfile}
       />
       <Text style={styles.title}>Bem-vindo</Text>
       <Text style={styles.description}>
@@ -118,7 +72,7 @@ export default function Incidents() {
       </Text>
 
       <FlatList
-        style={styles.incidentList} // Correção de 'styles' para 'style'
+        style={styles.incidentList}
         data={incidents}
         keyExtractor={(incident) => String(incident.id)}
         showsVerticalScrollIndicator={false}

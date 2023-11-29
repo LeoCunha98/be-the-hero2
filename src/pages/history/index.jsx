@@ -8,9 +8,9 @@ import styles from "./styles";
 export default function History({ route }) {
   const navigation = useNavigation();
   const incidents = [
-    { id: 1, title: "Incidente 1", description: "Descrição do incidente 1" },
-    { id: 2, title: "Incidente 2", description: "Descrição do incidente 2" },
-    { id: 3, title: "Incidente 3", description: "Descrição do incidente 3" },
+    { id: 1, title: "Incidente 1", value: 50 },
+    { id: 2, title: "Incidente 2", value: 50 },
+    { id: 3, title: "Incidente 3", value: 20 },
   ];
 
   function navigateBack() {
@@ -34,11 +34,11 @@ export default function History({ route }) {
           data={incidents}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <TouchableOpacity
+            <View
               style={{
                 marginTop: 30,
                 backgroundColor: "white",
-                padding: 16,
+                padding: 10,
                 marginBottom: 16,
                 borderRadius: 8,
                 shadowColor: "#000",
@@ -51,10 +51,13 @@ export default function History({ route }) {
               <Text style={{ fontSize: 18, fontWeight: "bold" }}>
                 {item.title}
               </Text>
-              <Text style={{ fontSize: 14, marginTop: 8 }}>
-                {item.description}
-              </Text>
-            </TouchableOpacity>
+              <Text style={styles.incidentValue}>
+              {Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              }).format(item.value)}
+            </Text>
+            </View>
           )}
         />
       ) : (

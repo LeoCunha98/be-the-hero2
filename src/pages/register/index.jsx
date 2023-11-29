@@ -10,7 +10,7 @@ import * as ImagePicker from "expo-image-picker";
 import styles from "./styles";
 
 const Register = () => {
-  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
@@ -33,17 +33,21 @@ const Register = () => {
   };
   
   function create() {
-    const userRef = ref(db, 'users/' + fullName);
+    const userRef = ref(db, 'users/' + username);
     set(userRef, {
-      fullName: fullName,
+      username: username,
       email: email,
+      phoneNumber: phoneNumber,
+      city: city,
+      uf: uf,
+      donations: []
       // profile_picture : image
     })
       .then(() => {
-        alert('Dados do usuário adicionados ao Realtime Database com sucesso');
+        console.log('Dados do usuário adicionados ao Realtime Database com sucesso');
       })
       .catch((error) => {
-        alert('Erro ao adicionar dados do usuário ao Realtime Database: ' + error.message);
+        console.log('Erro ao adicionar dados do usuário ao Realtime Database: ' + error.message);
       });
   }
 
@@ -74,9 +78,9 @@ const Register = () => {
 
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Nome Completo"
-          value={fullName}
-          onChangeText={(text) => setFullName(text)}
+          placeholder="Usuário"
+          value={username}
+          onChangeText={(text) => setUsername(text)}
           style={styles.input}
         />
         <TextInput
