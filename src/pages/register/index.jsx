@@ -1,7 +1,6 @@
-import { auth } from "../../config/firebase";
+import { auth, db } from "../../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { ref, set } from "firebase/database";
-import { db } from "../../config/firebase";
+import { push, ref, set } from "firebase/database";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { KeyboardAvoidingView } from "react-native-web";
@@ -10,7 +9,7 @@ import * as ImagePicker from "expo-image-picker";
 import styles from "./styles";
 
 const Register = () => {
-  const [username, setUsername] = useState("");
+  const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
@@ -20,22 +19,25 @@ const Register = () => {
 
   const navigation = useNavigation();
 
-  const handleSignUp = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user.email);
-  
-        // Chamada da função create para adicionar o usuário ao Realtime Database
-        create();
-      })
-      .catch((error) => alert(error.message));
+  const handleSignUp = async () => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Gera um novo ID único para o usuário
+      const userId = auth.currentUser.uid;
+
+      create(userId);
+      console.log(userId);
+    } catch (error) {
+      alert(error.message);
+    }
   };
   
-  function create() {
-    const userRef = ref(db, 'users/' + username);
+  const create = (userId) => {
+    const userRef = ref(db, `users/${userId}`);
     set(userRef, {
-      username: username,
+      fullName: fullName,
       email: email,
       phoneNumber: phoneNumber,
       city: city,
@@ -49,7 +51,7 @@ const Register = () => {
       .catch((error) => {
         console.log('Erro ao adicionar dados do usuário ao Realtime Database: ' + error.message);
       });
-  }
+  };
 
   const handleImagePicker = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -78,9 +80,9 @@ const Register = () => {
 
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Usuário"
-          value={username}
-          onChangeText={(text) => setUsername(text)}
+          placeholder="Nome Completo"
+          value={fullName}
+          onChangeText={(text) => setFullName(text)}
           style={styles.input}
         />
         <TextInput

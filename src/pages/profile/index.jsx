@@ -5,8 +5,9 @@ import profileImg from "../../assets/principe.jpg";
 import { TouchableOpacity } from "react-native-web";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
-import { auth } from "../../config/firebase";
+import { auth, db } from "../../config/firebase";
 import logoImg from "../../assets/logo.png"
+import { getDatabase, ref, get } from "firebase/database";
 
 const Profile = () => {
   const [fullName, setFullName] = useState("");
@@ -22,9 +23,12 @@ const Profile = () => {
     auth
       .signOut()
       .then(() => {
-        navigation.replace("Login")
+        navigation.replace("Login");
       })
-  }
+      .catch((error) => {
+        console.error("Erro ao fazer logout:", error.message);
+      });
+  };
 
   function navigateBack() {
     navigation.goBack();
@@ -38,28 +42,31 @@ const Profile = () => {
     if (loading) {
       return;
     }
-
+  
     setLoading(true);
-
-    const response = {
-      headers: {},
-      data: {
-        id: 1,
-        fullName: "Leonardo Cunha",
-        phoneNumber: "3299999999",
-        email: "l@email.com",
-        city: "Juiz de Fora",
-        uf: "MG",
-      },
-    };
-
-    setFullName(response.data.fullName);
-    setPhoneNumber(response.data.phoneNumber);
-    setEmail(response.data.email);
-    setCity(response.data.city);
-    setUf(response.data.uf);
-
-    setLoading(false);
+  
+    const user = auth.currentUser;
+  
+    if (user) {
+      console.log(user.uid);
+      const userRef = ref(db, `users/${user.uid}`);
+      try {
+        const snapshot = await get(userRef);
+        const userData = snapshot.val();
+  
+        if (userData) {
+          setFullName(userData.fullName);
+          setPhoneNumber(userData.phoneNumber);
+          setEmail(userData.email);
+          setCity(userData.city);
+          setUf(userData.uf);
+        }
+      } catch (error) {
+        console.error("Erro ao carregar dados do usuário:", error.message);
+      } finally {
+        setLoading(false);
+      }
+    }
   }
 
   useEffect(() => {
@@ -76,7 +83,7 @@ const Profile = () => {
       </View>
 
       <View style={styles.profileContainer}>
-        <Image source={profileImg} style={styles.profilePicture} />
+        {/* <Image source={profileImg} style={styles.profilePicture} /> */}
         <Text style={styles.fullName}>{fullName}</Text>
         <View style={styles.contactInfoContainer}>
           <View style={styles.contactInfoItem}>
