@@ -56,11 +56,16 @@ const styles = StyleSheet.create({
     width: "120%",
     justifyContent: "center",
     alignItems: "center",
+    margin: 10,
   },
   actionText: {
     color: "#FFF",
     fontSize: 15,
     fontWeight: "bold",
+  },
+  logo: {
+    width: 125,
+    height: 50,
   },
 });
 

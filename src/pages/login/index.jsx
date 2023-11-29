@@ -36,7 +36,6 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log("Login successful:", user.email);
       })
       .catch((error) => alert(error.message));
   };

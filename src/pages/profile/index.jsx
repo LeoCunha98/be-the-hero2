@@ -5,6 +5,8 @@ import profileImg from "../../assets/principe.jpg";
 import { TouchableOpacity } from "react-native-web";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
+import { auth } from "../../config/firebase";
+import logoImg from "../../assets/logo.png"
 
 const Profile = () => {
   const [fullName, setFullName] = useState("");
@@ -15,6 +17,14 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
 
   const navigation = useNavigation();
+
+  const handleSignOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        navigation.replace("Login")
+      })
+  }
 
   function navigateBack() {
     navigation.goBack();
@@ -59,6 +69,7 @@ const Profile = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <Image source={logoImg} style={styles.logo} />
         <TouchableOpacity onPress={navigateBack}>
           <Feather name="arrow-left" size={28} color="#E02041" />
         </TouchableOpacity>
@@ -88,6 +99,9 @@ const Profile = () => {
         <View style={styles.actions}>
           <TouchableOpacity style={styles.action} onPress={editProfile}>
             <Text style={styles.actionText}>Editar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.action} onPress={handleSignOut}>
+            <Text style={styles.actionText}>Sair</Text>
           </TouchableOpacity>
         </View>
       </View>

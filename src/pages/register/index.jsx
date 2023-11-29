@@ -61,7 +61,7 @@ const Register = () => {
         />
         <TextInput
           placeholder="Email"
-          value={phoneNumber}
+          value={email}
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
         />
