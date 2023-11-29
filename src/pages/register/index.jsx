@@ -1,5 +1,7 @@
 import { auth } from "../../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { ref, set } from "firebase/database";
+import { db } from "../../config/firebase";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { KeyboardAvoidingView } from "react-native-web";
@@ -23,9 +25,27 @@ const Register = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user.email);
+  
+        // Chamada da função create para adicionar o usuário ao Realtime Database
+        create();
       })
       .catch((error) => alert(error.message));
   };
+  
+  function create() {
+    const userRef = ref(db, 'users/' + fullName);
+    set(userRef, {
+      fullName: fullName,
+      email: email,
+      // profile_picture : image
+    })
+      .then(() => {
+        alert('Dados do usuário adicionados ao Realtime Database com sucesso');
+      })
+      .catch((error) => {
+        alert('Erro ao adicionar dados do usuário ao Realtime Database: ' + error.message);
+      });
+  }
 
   const handleImagePicker = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
