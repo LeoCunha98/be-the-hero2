@@ -3,7 +3,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { push, ref, set } from "firebase/database";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
-import { KeyboardAvoidingView } from "react-native-web";
+import { KeyboardAvoidingView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import styles from "./styles";
@@ -19,6 +19,7 @@ const Register = () => {
 
   const navigation = useNavigation();
 
+<<<<<<< Updated upstream
   const handleSignUp = async () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -36,20 +37,41 @@ const Register = () => {
   
   const create = (userId) => {
     const userRef = ref(db, `users/${userId}`);
+=======
+  const handleSignUp = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user.email);
+
+        // Chamada da função create para adicionar o usuário ao Realtime Database
+        create();
+      })
+      .catch((error) => alert(error.message));
+  };
+
+  function create() {
+    const userRef = ref(db, "users/" + username);
+>>>>>>> Stashed changes
     set(userRef, {
       fullName: fullName,
       email: email,
       phoneNumber: phoneNumber,
       city: city,
       uf: uf,
-      donations: []
+      donations: [],
       // profile_picture : image
     })
       .then(() => {
-        console.log('Dados do usuário adicionados ao Realtime Database com sucesso');
+        console.log(
+          "Dados do usuário adicionados ao Realtime Database com sucesso"
+        );
       })
       .catch((error) => {
-        console.log('Erro ao adicionar dados do usuário ao Realtime Database: ' + error.message);
+        console.log(
+          "Erro ao adicionar dados do usuário ao Realtime Database: " +
+            error.message
+        );
       });
   };
 
@@ -61,7 +83,7 @@ const Register = () => {
       quality: 1,
     });
 
-    if (!result.cancelled) {
+    if (!result.canceled) {
       setImage(result);
     } else {
       const defaultImage = require("../../assets/blank-profile.png");

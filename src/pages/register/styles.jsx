@@ -48,7 +48,7 @@ export default StyleSheet.create({
     fontSize: 16,
   },
   buttonOutlineText: {
-    color: "e02041",
+    color: "#e02041",
     fontWeight: "700",
     fontSize: 16,
   },

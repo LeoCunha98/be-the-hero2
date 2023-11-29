@@ -56,8 +56,8 @@ const AuthStack = () => (
 
 const IncidentesStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name='Incidentes' component={Incidentes} />
-    <Stack.Screen name='Detail' component={Detail} />
+    <Stack.Screen name='IncidentesStack' component={Incidentes} />
+    <Stack.Screen name='DetailStack' component={Detail} />
   </Stack.Navigator>
 );
 

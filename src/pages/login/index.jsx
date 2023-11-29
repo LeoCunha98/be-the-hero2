@@ -1,13 +1,8 @@
 import { auth } from "../../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import {
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { KeyboardAvoidingView } from "react-native-web";
+import { KeyboardAvoidingView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import styles from "./styles";
