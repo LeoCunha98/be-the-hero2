@@ -36,7 +36,7 @@ const MainTabs = () => (
       }}
     />
     <Tab.Screen
-      name='Profile'
+      name='Perfil'
       component={Profile}
       options={{
         tabBarIcon: ({ color, size }) => (

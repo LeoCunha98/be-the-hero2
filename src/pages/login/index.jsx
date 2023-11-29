@@ -61,7 +61,7 @@ const Login = () => {
           onPress={navigateToRegister}
           style={[styles.button, styles.buttonOutline]}
         >
-          <Text style={styles.buttonOutlineText}>Register</Text>
+          <Text style={styles.buttonOutlineText}>Cadastrar</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>

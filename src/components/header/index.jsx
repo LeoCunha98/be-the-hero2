@@ -1,10 +1,10 @@
 import React from "react";
-import { View, Image, Text, TouchableOpacity } from "react-native";
+import { View, Image, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import logoImg from "../../assets/logo.png";
 import styles from "./styles";
 
-export default function Header({ total, navigateToHistory, navigateToProfile }) {
+export default function Header({ total }) {
   const navigation = useNavigation();
 
   return (

@@ -1,12 +1,14 @@
 import { auth, db } from "../../config/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { push, ref, set } from "firebase/database";
+import { ref, set } from "firebase/database";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { KeyboardAvoidingView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import uuid from "react-native-uuid";
+
 import * as ImagePicker from "expo-image-picker";
 import styles from "./styles";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Register = () => {
   const [fullName, setFullName] = useState("");
@@ -19,43 +21,40 @@ const Register = () => {
 
   const navigation = useNavigation();
 
-  const handleSignUp = async () => {
+  const handleCreate = async () => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
-
-      // Gera um novo ID único para o usuário
       const userId = auth.currentUser.uid;
-
-      create(userId);
-      console.log(userId);
+      const userRef = ref(db, `users/${userId}`);
+      set(userRef, {
+        fullName: fullName,
+        email: email,
+        phoneNumber: phoneNumber,
+        city: city,
+        uf: uf,
+        donations: [],
+        // profile_picture : image
+      })
+        .then(() => {
+          console.log(
+            "Dados do usuário adicionados ao Realtime Database com sucesso"
+          );
+          navigation.replace("Login");
+        })
+        .catch((error) => {
+          console.log(
+            "Erro ao adicionar dados do usuário ao Realtime Database: " +
+              error.message
+          );
+        });
     } catch (error) {
       alert(error.message);
     }
-  };
-  
-  const create = (userId) => {
-    const userRef = ref(db, `users/${userId}`);
-    set(userRef, {
-      fullName: fullName,
-      email: email,
-      phoneNumber: phoneNumber,
-      city: city,
-      uf: uf,
-      donations: [],
-      // profile_picture : image
-    })
-      .then(() => {
-        console.log(
-          "Dados do usuário adicionados ao Realtime Database com sucesso"
-        );
-      })
-      .catch((error) => {
-        console.log(
-          "Erro ao adicionar dados do usuário ao Realtime Database: " +
-            error.message
-        );
-      });
   };
 
   const handleImagePicker = async () => {
@@ -102,6 +101,7 @@ const Register = () => {
           onChangeText={(text) => setPhoneNumber(text)}
           style={styles.input}
           maxLength={11}
+          keyboardType="numeric"
         />
         <TextInput
           placeholder="Cidade"
@@ -127,7 +127,7 @@ const Register = () => {
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          onPress={handleSignUp}
+          onPress={handleCreate}
           style={[styles.button, styles.buttonOutline]}
         >
           <Text style={styles.buttonOutlineText}>Cadastrar</Text>

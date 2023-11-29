@@ -6,8 +6,8 @@ import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import { auth, db } from "../../config/firebase";
-import logoImg from "../../assets/logo.png"
-import { getDatabase, ref, get } from "firebase/database";
+import logoImg from "../../assets/logo.png";
+import { ref, get } from "firebase/database";
 
 const Profile = () => {
   const [fullName, setFullName] = useState("");
@@ -42,18 +42,17 @@ const Profile = () => {
     if (loading) {
       return;
     }
-  
+
     setLoading(true);
-  
+
     const user = auth.currentUser;
-  
+
     if (user) {
-      console.log(user.uid);
       const userRef = ref(db, `users/${user.uid}`);
       try {
         const snapshot = await get(userRef);
         const userData = snapshot.val();
-  
+
         if (userData) {
           setFullName(userData.fullName);
           setPhoneNumber(userData.phoneNumber);
