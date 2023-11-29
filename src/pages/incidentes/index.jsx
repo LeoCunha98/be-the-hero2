@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import {
-  View,
-  FlatList,
-  Image,
-  Text,
-  TouchableOpacity,
-  Pressable,
-} from "react-native";
+import { View, FlatList, Text, Pressable } from "react-native";
 import { ref, get } from "firebase/database";
 import { db } from "../../config/firebase";
 
@@ -63,9 +56,7 @@ export default function Incidents() {
 
   return (
     <View style={styles.container}>
-       <Header
-        total={total}
-      />
+      <Header total={total} />
       <Text style={styles.title}>Bem-vindo</Text>
       <Text style={styles.description}>
         Escolha um dos casos abaixo e salve o dia.

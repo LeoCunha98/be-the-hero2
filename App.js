@@ -21,7 +21,7 @@ const MainTabs = () => (
       name='Incidentes'
       component={IncidentesStack}
       options={{
-        tabBarIcon: ({ color, size }) => (
+        tabBarIcon: ({ color }) => (
           <Entypo name="home" size={24} color={color} />
         ),
       }}
@@ -30,7 +30,7 @@ const MainTabs = () => (
       name='Historico'
       component={History}
       options={{
-        tabBarIcon: ({ color, size }) => (
+        tabBarIcon: ({ color }) => (
           <FontAwesome name="history" size={24} color={color} />
         ),
       }}
@@ -39,7 +39,7 @@ const MainTabs = () => (
       name='Perfil'
       component={Profile}
       options={{
-        tabBarIcon: ({ color, size }) => (
+        tabBarIcon: ({ color }) => (
           <AntDesign name="profile" size={24} color={color} />
         ),
       }}
@@ -57,7 +57,7 @@ const AuthStack = () => (
 const IncidentesStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name='IncidentesStack' component={Incidentes} />
-    <Stack.Screen name='DetailStack' component={Detail} />
+    <Stack.Screen name='Detail' component={Detail} />
   </Stack.Navigator>
 );
 

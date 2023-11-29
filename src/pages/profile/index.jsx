@@ -82,7 +82,7 @@ const Profile = () => {
       </View>
 
       <View style={styles.profileContainer}>
-        {/* <Image source={profileImg} style={styles.profilePicture} /> */}
+        <Image source={profileImg} style={styles.profilePicture} />
         <Text style={styles.fullName}>{fullName}</Text>
         <View style={styles.contactInfoContainer}>
           <View style={styles.contactInfoItem}>

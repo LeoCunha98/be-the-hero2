@@ -12,7 +12,11 @@ export default function Detail() {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const { incident } = route.params;
+  const { incident, isFromHistory } = route.params;
+
+  console.log("incident :>> ", incident);
+  console.log("isFromHistory :>> ", isFromHistory);
+
   const message = `Olá ${
     incident.name
   }, estou entrando em contato pois gostaria de ajudar no caso "${
@@ -67,20 +71,22 @@ export default function Detail() {
           }).format(incident.value)}
         </Text>
       </View>
+      {!isFromHistory && (
+        <View style={styles.contactBox}>
+          <Text style={styles.heroTitle}>Salve o dia!</Text>
+          <Text style={styles.heroTitle}>Seja o herói desse caso.</Text>
+          <Text style={styles.heroDescription}>Entre em contato: </Text>
 
-      <View style={styles.contactBox}>
-        <Text style={styles.heroTitle}>Salve o dia!</Text>
-        <Text style={styles.heroTitle}>Seja o herói desse caso.</Text>
-        <Text style={styles.heroDescription}>Entre em contato: </Text>
-        <View style={styles.actions}>
-          <TouchableOpacity style={styles.action} onPress={sendWhatsapp}>
-            <Text style={styles.actionText}>WhatsApp</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.action} onPress={sendMail}>
-            <Text style={styles.actionText}>Email</Text>
-          </TouchableOpacity>
+          <View style={styles.actions}>
+            <TouchableOpacity style={styles.action} onPress={sendWhatsapp}>
+              <Text style={styles.actionText}>WhatsApp</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.action} onPress={sendMail}>
+              <Text style={styles.actionText}>Email</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      )}
     </View>
   );
 }
