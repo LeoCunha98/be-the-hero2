@@ -5,14 +5,9 @@ import profileImg from "../../assets/principe.jpg";
 import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
-<<<<<<< Updated upstream
 import { auth, db } from "../../config/firebase";
 import logoImg from "../../assets/logo.png"
 import { getDatabase, ref, get } from "firebase/database";
-=======
-import { auth } from "../../config/firebase";
-import logoImg from "../../assets/logo.png";
->>>>>>> Stashed changes
 
 const Profile = () => {
   const [fullName, setFullName] = useState("");
@@ -25,7 +20,6 @@ const Profile = () => {
   const navigation = useNavigation();
 
   const handleSignOut = () => {
-<<<<<<< Updated upstream
     auth
       .signOut()
       .then(() => {
@@ -34,11 +28,6 @@ const Profile = () => {
       .catch((error) => {
         console.error("Erro ao fazer logout:", error.message);
       });
-=======
-    auth.signOut().then(() => {
-      navigation.replace("Login");
-    });
->>>>>>> Stashed changes
   };
 
   function navigateBack() {

@@ -19,7 +19,6 @@ const Register = () => {
 
   const navigation = useNavigation();
 
-<<<<<<< Updated upstream
   const handleSignUp = async () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -37,22 +36,6 @@ const Register = () => {
   
   const create = (userId) => {
     const userRef = ref(db, `users/${userId}`);
-=======
-  const handleSignUp = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user.email);
-
-        // Chamada da função create para adicionar o usuário ao Realtime Database
-        create();
-      })
-      .catch((error) => alert(error.message));
-  };
-
-  function create() {
-    const userRef = ref(db, "users/" + username);
->>>>>>> Stashed changes
     set(userRef, {
       fullName: fullName,
       email: email,
