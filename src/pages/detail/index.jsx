@@ -14,9 +14,6 @@ export default function Detail() {
 
   const { incident, isFromHistory } = route.params;
 
-  console.log("incident :>> ", incident);
-  console.log("isFromHistory :>> ", isFromHistory);
-
   const message = `Olá ${
     incident.name
   }, estou entrando em contato pois gostaria de ajudar no caso "${
