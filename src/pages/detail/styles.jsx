@@ -7,6 +7,13 @@ export default StyleSheet.create({
     paddingTop: StatusBar.currentHeight + 20,
   },
 
+  map: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
   header: {
     flexDirection: "row",
     justifyContent: "space-between",

@@ -22,6 +22,7 @@ export default function Incidents() {
   }
 
   async function loadIncidents() {
+  try {
     if (loading) {
       return;
     }
@@ -35,6 +36,7 @@ export default function Incidents() {
     const incidentsRef = ref(db, "incidents");
     const snapshot = await get(incidentsRef);
     const data = snapshot.val();
+    console.log("Incidents:", data);
 
     if (data) {
       const incidentsArray = Object.keys(data).map((key) => ({
@@ -48,7 +50,11 @@ export default function Incidents() {
     }
 
     setLoading(false);
+  } catch (error) {
+    console.error("Erro ao carregar incidentes:", error);
   }
+}
+
 
   useEffect(() => {
     loadIncidents();

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Image, Text, TouchableOpacity, Linking } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Feather from "react-native-vector-icons/Feather";
 import * as MailComposer from "expo-mail-composer";
+import MapView, { Marker } from "react-native-maps";
+
 
 import logoImg from "../../assets/logo.png";
 
@@ -11,17 +13,21 @@ import styles from "./styles";
 export default function Detail() {
   const navigation = useNavigation();
   const route = useRoute();
+  const [mapRegion, setMapRegion] = useState({
+    latitude: -21.7465511,
+    longitude: -43.3592681,
+    latitudeDelta: 0.009,
+    longitudeDelta: 0.009,
+  });
 
   const { incident, isFromHistory } = route.params;
 
-  const message = `Olá ${
-    incident.name
-  }, estou entrando em contato pois gostaria de ajudar no caso "${
-    incident.title
-  }" com o valor de ${Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  }).format(incident.value)}`;
+  const message = `Olá ${incident.name
+    }, estou entrando em contato pois gostaria de ajudar no caso "${incident.title
+    }" com o valor de ${Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(incident.value)}`;
 
   function navigateBack() {
     navigation.goBack();
@@ -84,6 +90,14 @@ export default function Detail() {
           </View>
         </View>
       )}
+      <View style={styles.map}>
+        <MapView
+          style={{ alignSelf: 'stretch', height: '80%' }}
+          region={mapRegion}
+        >
+          <Marker coordinate={mapRegion} title='UniAcademia' />
+        </MapView>
+      </View>
     </View>
   );
 }

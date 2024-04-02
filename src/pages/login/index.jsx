@@ -28,11 +28,16 @@ const Login = () => {
   }, []);
 
   const handleLogin = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-      })
-      .catch((error) => alert(error.message));
+    try {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+        })
+        .catch((error) => alert(error.message));
+    } catch (error) {
+      alert("Ocorreu um erro durante o login. Por favor, tente novamente.");
+      console.error("Erro durante o login:", error);
+    }
   };
 
   return (
