@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, Text, TouchableOpacity, Linking } from "react-native";
+import { View, Image, Text, TouchableOpacity, Linking, ScrollView } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Feather from "react-native-vector-icons/Feather";
 import * as MailComposer from "expo-mail-composer";
@@ -14,8 +14,8 @@ export default function Detail() {
   const navigation = useNavigation();
   const route = useRoute();
   const [mapRegion, setMapRegion] = useState({
-    latitude: -21.7465511,
-    longitude: -43.3592681,
+    latitude: -21.762103515874447,
+    longitude: -43.348698703673286,
     latitudeDelta: 0.009,
     longitudeDelta: 0.009,
   });
@@ -48,7 +48,7 @@ export default function Detail() {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Image source={logoImg} style={styles.logo} />
 
@@ -92,12 +92,12 @@ export default function Detail() {
       )}
       <View style={styles.map}>
         <MapView
-          style={{ alignSelf: 'stretch', height: '80%' }}
+          style={{ alignSelf: 'stretch', height: 300 }}
           region={mapRegion}
         >
-          <Marker coordinate={mapRegion} title='UniAcademia' />
+          <Marker coordinate={mapRegion} title='ONG AJUDA' />
         </MapView>
       </View>
-    </View>
+    </ScrollView>
   );
 }
