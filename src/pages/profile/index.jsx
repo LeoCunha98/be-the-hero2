@@ -8,6 +8,8 @@ import { useNavigation } from "@react-navigation/core";
 import { auth, db } from "../../config/firebase";
 import logoImg from "../../assets/logo.png";
 import { ref, get } from "firebase/database";
+import * as ImagePicker from 'expo-image-picker';
+import * as MediaLibrary from 'expo-media-library';
 
 const Profile = () => {
   const [fullName, setFullName] = useState("");
@@ -18,6 +20,43 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
 
   const navigation = useNavigation();
+  const [pickedImagePath, setPickedImagePath] = useState('');
+
+  const showImagePicker = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("Sem permissão de acesso as imagens!");
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync();
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setPickedImagePath(result.uri);
+      console.log(result.uri);
+    }
+  }
+
+  const openCamera = async () => {
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("Sem permissão de acesso a câmera!");
+      return;
+    }
+
+    const result = await ImagePicker.launchCameraAsync();
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setPickedImagePath(result.uri);
+      console.log(result.uri);
+    }
+  }
 
   const handleSignOut = () => {
     auth
@@ -101,6 +140,14 @@ const Profile = () => {
             <Text style={styles.contactInfoLabel}>UF:</Text>
             <Text style={styles.contactInfoValue}>{uf}</Text>
           </View>
+        </View>
+        <View style={styles.actions}>
+          <TouchableOpacity style={styles.action} onPress={openCamera}>
+            <Text style={styles.actionText}>Tirar foto</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.action} onPress={showImagePicker}>
+            <Text style={styles.actionText}>Selecionar imagem</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.actions}>
           <TouchableOpacity style={styles.action} onPress={editProfile}>

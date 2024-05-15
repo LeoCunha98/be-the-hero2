@@ -3,7 +3,7 @@ import { View, Image, Text, TouchableOpacity, Linking, ScrollView } from "react-
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Feather from "react-native-vector-icons/Feather";
 import * as MailComposer from "expo-mail-composer";
-import MapView, { Marker } from "react-native-maps";
+//import MapView, { Marker } from "react-native-maps";
 
 
 import logoImg from "../../assets/logo.png";
