@@ -18,9 +18,10 @@ const Profile = () => {
   const [city, setCity] = useState("");
   const [uf, setUf] = useState("");
   const [loading, setLoading] = useState(false);
+  const [pickedImagePath, setPickedImagePath] = useState('');
 
   const navigation = useNavigation();
-  const [pickedImagePath, setPickedImagePath] = useState('');
+  
 
   const showImagePicker = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -36,7 +37,7 @@ const Profile = () => {
 
     if (!result.cancelled) {
       setPickedImagePath(result.uri);
-      console.log(result.uri);
+      saveImageToGallery(result.uri);
     }
   }
 
@@ -50,12 +51,14 @@ const Profile = () => {
 
     const result = await ImagePicker.launchCameraAsync();
 
-    console.log(result);
-
     if (!result.cancelled) {
       setPickedImagePath(result.uri);
-      console.log(result.uri);
+      saveImageToGallery(result.uri);
     }
+  }
+
+  const saveImageToGallery = async (imageUri) => {
+      await MediaLibrary.saveToLibraryAsync(imageUri);
   }
 
   const handleSignOut = () => {
