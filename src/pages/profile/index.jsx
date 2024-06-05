@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import styles from "./styles";
 import profileImg from "../../assets/principe.jpg";
-import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import { auth, db } from "../../config/firebase";
@@ -27,7 +26,7 @@ const Profile = () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (permissionResult.granted === false) {
-      alert("Sem permissão de acesso as imagens!");
+      Alert.alert("Sem permissão de acesso as imagens!");
       return;
     }
 
@@ -45,7 +44,7 @@ const Profile = () => {
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
 
     if (permissionResult.granted === false) {
-      alert("Sem permissão de acesso a câmera!");
+      Alert.alert("Sem permissão de acesso a câmera!");
       return;
     }
 
@@ -124,7 +123,10 @@ const Profile = () => {
       </View>
 
       <View style={styles.profileContainer}>
-        <Image source={profileImg} style={styles.profilePicture} />
+      <Image 
+          source={pickedImagePath ? { uri: pickedImagePath } : profileImg} 
+          style={styles.profilePicture} 
+        />
         <Text style={styles.fullName}>{fullName}</Text>
         <View style={styles.contactInfoContainer}>
           <View style={styles.contactInfoItem}>
