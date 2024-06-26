@@ -3,6 +3,9 @@ import { View, Image, Text, TouchableOpacity, Linking, ScrollView } from "react-
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Feather from "react-native-vector-icons/Feather";
 import * as MailComposer from "expo-mail-composer";
+//import { ProgressCircle } from 'react-native-svg-charts'
+import { ProgressChart } from 'react-native-chart-kit';
+import { Dimensions } from 'react-native';
 //import MapView, { Marker } from "react-native-maps";
 
 
@@ -13,12 +16,26 @@ import styles from "./styles";
 export default function Detail() {
   const navigation = useNavigation();
   const route = useRoute();
-  const [mapRegion, setMapRegion] = useState({
-    latitude: -21.762103515874447,
-    longitude: -43.348698703673286,
-    latitudeDelta: 0.009,
-    longitudeDelta: 0.009,
-  });
+  // const [mapRegion, setMapRegion] = useState({
+  //   latitude: -21.762103515874447,
+  //   longitude: -43.348698703673286,
+  //   latitudeDelta: 0.009,
+  //   longitudeDelta: 0.009,
+  // });
+
+  const screenWidth = Dimensions.get('window').width;
+
+  const data = {
+    data: [0.8]
+  };
+  const chartConfig = {
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientToOpacity: 0,
+    color: (opacity = 1) => `rgba(224, 32, 65, ${opacity})`,
+    strokeWidth: 6, // Espessura do traço
+    barPercentage: 0.5,
+  };
+
 
   const { incident, isFromHistory } = route.params;
 
@@ -90,14 +107,26 @@ export default function Detail() {
           </View>
         </View>
       )}
-      <View style={styles.map}>
+      <View style={styles.contactBox}>
+        <Text style={[styles.incidentProperty, { marginTop: 0 }]}>Meta:</Text>
+        <ProgressChart
+          data={data}
+          width={screenWidth * 0.8}
+          height={220}
+          strokeWidth={25}
+          radius={80}
+          chartConfig={chartConfig}
+          hideLegend={true}
+        />
+      </View>
+      {/* <View style={styles.map}>
         <MapView
           style={{ alignSelf: 'stretch', height: 300 }}
           region={mapRegion}
         >
           <Marker coordinate={mapRegion} title='ONG AJUDA' />
         </MapView>
-      </View>
+      </View> */}
     </ScrollView>
   );
 }

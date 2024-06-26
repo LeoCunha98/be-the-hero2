@@ -36,7 +36,6 @@ const Profile = () => {
 
     if (!result.cancelled) {
       setPickedImagePath(result.uri);
-      saveImageToGallery(result.uri);
     }
   }
 
